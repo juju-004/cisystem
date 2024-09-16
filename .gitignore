@@ -13,6 +13,7 @@ test-results
 cypress/screenshots
 cypress/videos
 cypress.env.json
+/joy
 
 # next.js
 /.next/
