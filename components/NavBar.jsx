@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { Box, Sheet, IconButton, useColorScheme, Tooltip, Container } from '@mui/joy';
+import { Box, Sheet, IconButton, useColorScheme, Tooltip, Container, Avatar, Typography, Button } from '@mui/joy';
 import DarkMode from '../icons/DarkMode';
 import LightMode from '../icons/LightMode';
 import Roc from '../icons/RocketLaunch';
+import { BiPowerOff } from 'react-icons/bi';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,52 +42,36 @@ const NavBar = () => {
           display: 'flex',
           alignItems: 'center'
         }}>
-        {/* <Link href={'/'} style={{ display: 'flex' }}>
-          <Image src={icon} alt={'Home'} width={32} />
-        </Link>
-        <BrandingText brand={'Civil Intelligent System'} />
-
-        <Box flexGrow={1} /> */}
-        {/* <UncontrolledDropdown nav inNavbar data-testid="navbar-menu-desktop">
-        <DropdownToggle nav caret id="profileDropDown">
-          <img
-            src={user.picture}
-            alt="Profile"
-            className="nav-user-profile rounded-circle"
-            width="50"
-            height="50"
-            decode="async"
-            data-testid="navbar-picture-desktop"
-          />
-        </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem header data-testid="navbar-user-desktop">
-            {user.name}
-          </DropdownItem>
-          <DropdownItem className="dropdown-profile" tag="span">
-            <PageLink href="/profile" icon="user" testId="navbar-profile-desktop">
-              Profile
-            </PageLink>
-          </DropdownItem>
-          <DropdownItem id="qsLogoutBtn">
-            <AnchorLink href="/api/auth/logout" icon="power-off" testId="navbar-logout-desktop">
-              Log out
-            </AnchorLink>
-          </DropdownItem>
-        </DropdownMenu>
-      </UncontrolledDropdown> */}
         <span className="items-center gap-2">
           <Roc /> <span className="font-bold">CIS</span>
         </span>
         <Box sx={{ flexGrow: 1 }} />
-        <Tooltip title={`Turn ${mode === 'light' ? 'off' : 'on'} the lights`} variant={'soft'} arrow>
-          <IconButton
-            size={'sm'}
-            variant={'outlined'}
-            onClick={() => mounted && setMode(mode === 'light' ? 'dark' : 'light')}>
-            {!mounted ? <LightMode /> : mode === 'light' ? <DarkMode /> : <LightMode />}
-          </IconButton>
-        </Tooltip>
+        <div className="fx gap-3">
+          {user && (
+            <>
+              <Avatar src={user.picture} className="flex md:hidden" size="sm" />
+              <span className="items-center pl-1 pr-4 bg-slate-500/15 hidden md:flex rounded-3xl gap-2 py-1">
+                <Avatar src={user.picture} size="sm" />
+                <Typography>{user.name}</Typography>
+              </span>
+              <Tooltip title={`Logout`} color="danger" variant={'soft'} arrow>
+                <Button size={'sm'} color="danger" variant="outlined">
+                  <a d href="/api/auth/logout" className="text-inherit hover:text-inherit fx md:pr-2 gap-2">
+                    <BiPowerOff className="md:scale-105 scale-[1.4]" /> <span className="hidden md:flex">Logout</span>
+                  </a>
+                </Button>
+              </Tooltip>
+            </>
+          )}
+          <Tooltip title={`Turn ${mode === 'light' ? 'off' : 'on'} the lights`} variant={'soft'} arrow>
+            <IconButton
+              size={'sm'}
+              variant={'outlined'}
+              onClick={() => mounted && setMode(mode === 'light' ? 'dark' : 'light')}>
+              {!mounted ? <LightMode /> : mode === 'light' ? <DarkMode /> : <LightMode />}
+            </IconButton>
+          </Tooltip>
+        </div>
       </Container>
     </Sheet>
   );

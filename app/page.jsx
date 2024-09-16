@@ -4,15 +4,18 @@ import React from 'react';
 import { Box, Button, Container, Divider, Typography, Link as JoyLink } from '@mui/joy';
 import NavigateNext from '../icons/NavigateNext';
 import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const theme = extendTheme({
   colorSchemeSelector: 'media'
 });
 
 import NavBar from '../components/NavBar';
-import Link from 'next/link';
 
 export default function Index() {
+  const { user, isLoading } = useUser();
+  const toggle = () => setIsOpen(!isOpen);
+
   return (
     <>
       <CssVarsProvider theme={theme}>
@@ -24,7 +27,6 @@ export default function Index() {
           <Box
             sx={{
               display: 'flex',
-
               flex: 1,
               width: '100%'
             }}
@@ -42,21 +44,40 @@ export default function Index() {
                 justifyContent: 'center',
                 flex: 1
               }}>
-              <Typography level={'h1'} mb={2}>
-                Civil <span style={{ color: 'var(--joy-palette-primary-400)' }}>Intel</span>
-                ligent System
-              </Typography>
-              <Typography mb={2}>
-                This is the future of web authentication: single-click sign on, faceid, fingerprint, strong security and
-                is virtually unphishable
-              </Typography>
-              <Box gap={1.5} display={'flex'} flexWrap={'wrap'} justifyContent={'center'}>
-                <Link href="/api/auth/login">
-                  <Button size={'lg'} component={'a'} sx={{ bgcolor: 'primary.500' }} endDecorator={<NavigateNext />}>
-                    Give it a try!
-                  </Button>
-                </Link>
-              </Box>
+              {user ? (
+                <>
+                  <Typography level={'h1'} mb={2}>
+                    Hi <span style={{ color: 'var(--joy-palette-primary-400)' }}>David!!!</span>
+                  </Typography>
+                  <br />
+                  <Typography level={'h2'} mb={2}>
+                    You are now signed in to our Civil Inteligent Software
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <Typography level={'h1'} mb={2}>
+                    Civil <span style={{ color: 'var(--joy-palette-primary-400)' }}>Intel</span>
+                    ligent System
+                  </Typography>
+                  <Typography mb={2}>
+                    This is the future of web authentication: single-click sign on, faceid, fingerprint, strong security
+                    and is virtually unphishable
+                  </Typography>
+                  <Box gap={1.5} display={'flex'} flexWrap={'wrap'} justifyContent={'center'}>
+                    <Button
+                      disabled={isLoading}
+                      className="disabled:opacity-70 opacity-100 duration-150"
+                      size={'lg'}
+                      sx={{ bgcolor: 'primary.500' }}
+                      endDecorator={<NavigateNext />}>
+                      <a className="text-white" d href="/api/auth/login">
+                        Give it a try!
+                      </a>
+                    </Button>
+                  </Box>
+                </>
+              )}
             </Container>
           </Box>
           <Divider sx={{ blockSize: '0.1px' }} />
@@ -77,7 +98,7 @@ export default function Index() {
                   C<span style={{ color: 'var(--joy-palette-primary-400)' }}>I</span>S
                 </Typography>
                 <Divider orientation={'vertical'} />
-                <Typography>-2024. All rights reserved</Typography>
+                <Typography>2024. All rights reserved</Typography>
               </Box>
               <Typography sx={{ opacity: 0.7 }}>This website is licenced under the MIT license</Typography>
             </Container>
