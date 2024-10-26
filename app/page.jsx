@@ -76,8 +76,7 @@ export default function Index() {
               ) : (
                 <>
                   <Typography level={'h1'} mb={2}>
-                    Intrusion <span style={{ color: 'var(--joy-palette-primary-400)' }}>Tolerant</span>
-                    System
+                    Intrusion <span style={{ color: 'var(--joy-palette-primary-400)' }}>Tolerant</span> System
                   </Typography>
                   <Typography mb={2}>
                     This is the future of web authentication: using rsa encryption format and email authentication
