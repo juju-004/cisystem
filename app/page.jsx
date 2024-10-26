@@ -5,6 +5,7 @@ import { Box, Button, Container, Divider, Typography, Link as JoyLink } from '@m
 import NavigateNext from '../icons/NavigateNext';
 import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { BiPowerOff } from 'react-icons/bi';
 
 const theme = extendTheme({
   colorSchemeSelector: 'media'
@@ -47,22 +48,39 @@ export default function Index() {
               {user ? (
                 <>
                   <Typography level={'h1'} mb={2}>
-                    Hi <span style={{ color: 'var(--joy-palette-primary-400)' }}>David!!!</span>
+                    Hi <span style={{ color: 'var(--joy-palette-primary-400)' }}>{user.name}</span>
                   </Typography>
                   <br />
                   <Typography level={'h2'} mb={2}>
-                    You are now signed in to our Civil Inteligent Software
+                    You are now signed in to our Intrusion Tolerant System
                   </Typography>
+                  <Typography level={'h4'} mt={2} mb={2}>
+                    Your rsa key is{' '}
+                    <span style={{ color: 'var(--joy-palette-primary-400)' }}>
+                      Ggu4H537XLg2GHkfHM6vOZ7ycJtqYqZiSp5BMigfufTS4uRVrGmmURl9g5_s2E0C
+                    </span>{' '}
+                  </Typography>
+                  <Box gap={1.5} display={'flex'} flexWrap={'wrap'} justifyContent={'center'}>
+                    <Button
+                      disabled={isLoading}
+                      className="disabled:opacity-70 opacity-100 duration-150"
+                      size={'lg'}
+                      sx={{ bgcolor: 'primary.500' }}
+                      endDecorator={<BiPowerOff />}>
+                      <a className="text-white" d href="/api/auth/logout">
+                        Logout
+                      </a>
+                    </Button>
+                  </Box>
                 </>
               ) : (
                 <>
                   <Typography level={'h1'} mb={2}>
-                    Civil <span style={{ color: 'var(--joy-palette-primary-400)' }}>Intel</span>
-                    ligent System
+                    Intrusion <span style={{ color: 'var(--joy-palette-primary-400)' }}>Tolerant</span>
+                    System
                   </Typography>
                   <Typography mb={2}>
-                    This is the future of web authentication: single-click sign on, faceid, fingerprint, strong security
-                    and is virtually unphishable
+                    This is the future of web authentication: using rsa encryption format and email authentication
                   </Typography>
                   <Box gap={1.5} display={'flex'} flexWrap={'wrap'} justifyContent={'center'}>
                     <Button
@@ -72,7 +90,7 @@ export default function Index() {
                       sx={{ bgcolor: 'primary.500' }}
                       endDecorator={<NavigateNext />}>
                       <a className="text-white" d href="/api/auth/login">
-                        Give it a try!
+                        Sign in
                       </a>
                     </Button>
                   </Box>
@@ -95,7 +113,7 @@ export default function Index() {
             <Container maxWidth={'lg'}>
               <Box display={'flex'} alignItems={'center'} gap={2} mb={1.5}>
                 <Typography fontFamily={'display'} level={'h4'} lineHeight={'32px'} fontWeight={'800'}>
-                  C<span style={{ color: 'var(--joy-palette-primary-400)' }}>I</span>S
+                  I<span style={{ color: 'var(--joy-palette-primary-400)' }}>T</span>S
                 </Typography>
                 <Divider orientation={'vertical'} />
                 <Typography>2024. All rights reserved</Typography>
